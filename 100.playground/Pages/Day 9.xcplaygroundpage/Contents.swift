@@ -17,3 +17,6 @@ let smallClosure = {
 }
 
 smallClosure()
+
+let dogNameInUppercase = myCoolTupleWithName.dogNames.map { $0.uppercased() }
+print(dogNameInUppercase)
