@@ -102,3 +102,26 @@ goOnVacation(to: "Mexico") {
     print("Go hiking")
 }
 
+///
+func sayHello () -> Void {
+    print("Hello")
+}
+///
+var box = sayHello
+box()
+
+///
+var closureWithParm = {(name: String) -> Void in
+    print("hello " + name)
+}
+closureWithParm("JonyBonobo")
+///
+func useSayHello(mycoolFuncLabel myFunc: () -> Void) -> Void {
+    myFunc()
+    print("helloFunc(USED)")
+}
+
+useSayHello {
+    box()
+}
+
