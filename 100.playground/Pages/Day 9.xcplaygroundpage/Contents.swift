@@ -66,7 +66,6 @@ func printDocument(contents: () -> Void) {
 printDocument(contents: { resignation("yeah baybay")})
 ///
 ///
-/// trailing closure
 func phoneFriend(conversation: () -> Void) {
 print("Calling 555-1234...")
 conversation()
