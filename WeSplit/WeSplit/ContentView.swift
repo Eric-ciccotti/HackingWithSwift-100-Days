@@ -8,14 +8,30 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var name: String = ""
+    @State var counter: Int = 0
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            Form {
+                Section {
+                    Text("say your name: \(name)")
+                    TextField("here", text: $name)
+                }
+                Section {
+                    Text("jonny")
+                }
+                Group {
+                    Button("Touch me \(counter)") {
+                        counter += 1
+                    }
+                }
+            }
+            .navigationTitle("Title partout")
+            .navigationBarTitleDisplayMode(
+                .inline
+            )
         }
-        .padding()
+    
     }
 }
 
