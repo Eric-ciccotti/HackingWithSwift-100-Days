@@ -32,6 +32,7 @@ struct ContentView: View {
         Grid(rows: 5, columns: 5) { rows, columns in
             HStack {
                 Text("QW")
+                Text("QW")
                 Text("KP")
             }
         }
