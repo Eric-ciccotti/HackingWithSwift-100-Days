@@ -10,7 +10,7 @@ import SwiftUI
 struct Grid<Content: View> : View {
     let rows: Int
     let columns: Int
-    let content: (Int, Int) -> Content
+    @ViewBuilder let content: (Int, Int) -> Content
         
         var body: some View {
             VStack {
@@ -30,11 +30,9 @@ struct Grid<Content: View> : View {
 struct ContentView: View {
     var body: some View {
         Grid(rows: 5, columns: 5) { rows, columns in
-            HStack {
                 Text("QW")
                 Text("QW")
                 Text("KP")
-            }
         }
     }
 }

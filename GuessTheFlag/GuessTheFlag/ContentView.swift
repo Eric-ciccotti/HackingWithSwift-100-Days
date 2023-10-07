@@ -7,6 +7,40 @@
 
 import SwiftUI
 
+// creation d'un modifier
+struct BigTitle : ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding()
+            .font(.largeTitle.weight(.bold))
+            .foregroundColor(.white)
+            .background(LinearGradient(colors: [Color.blue, Color.cyan], startPoint: .leading, endPoint: .bottom))
+            .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+        
+    }
+}
+
+// extension du modifier
+extension View {
+    func bigTitle() -> some View {
+        modifier(BigTitle())
+    }
+}
+
+struct BoardText: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .font(.largeTitle.weight(.bold))
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 20)
+            .background(.ultraThinMaterial)
+            .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+    }
+}
+
 struct ContentView: View {
     @State private var showingScore = false
     @State private var showingRestart = false
@@ -17,6 +51,13 @@ struct ContentView: View {
     
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
+    
+    func FlagImage(_ countrieNumber: Int) -> some View {
+        Image(countries[countrieNumber])
+            .renderingMode(.original)
+            .clipShape(.rect(cornerRadius: 20))
+            .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+    }
     
     var body: some View {
         ZStack {
@@ -29,10 +70,9 @@ struct ContentView: View {
                 Spacer()
                 
                 Text("Guess the Flag")
-                    .font(.largeTitle.weight(.bold))
-                    .foregroundColor(.white)
+                    .bigTitle()
                 
-            
+                
                 VStack(spacing: 15) {
                     VStack {
                         Text("TAP THE RIGHT FLAG !")
@@ -44,10 +84,7 @@ struct ContentView: View {
                         Button {
                             flagTapped(number)
                         } label : {
-                            Image(countries[number])
-                                .renderingMode(.original)
-                                .clipShape(.rect(cornerRadius: 20))
-                                .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                            FlagImage(number)
                         }
                     }
                 }
@@ -60,22 +97,10 @@ struct ContentView: View {
                 Spacer()
                 Spacer()
                 
+                BoardText(text: "Score : \(score)")
+                BoardText(text: "Remaining Game : \(counter)")
                 
-                Text("Score : \(score)")
-                    .font(.largeTitle.weight(.bold))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 20)
-                    .background(.ultraThinMaterial)
-                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 
-                Text("Remaining Game : \(counter)")
-                    .font(.title.weight(.bold))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 20)
-                    .background(.ultraThinMaterial)
-                    .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                 
                 Spacer()
             }
@@ -113,7 +138,7 @@ struct ContentView: View {
         if(counter == 0) {
             showingRestart = true
         }
-   
+        
         showingScore = true
     }
     
@@ -130,7 +155,7 @@ struct ContentView: View {
     }
     
     func quit() {
-       exit(0)
+        exit(0)
     }
 }
 

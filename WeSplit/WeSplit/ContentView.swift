@@ -17,11 +17,9 @@ struct ContentView: View {
     
     var currencyFormat : FloatingPointFormatStyle<Double>.Currency =  .currency(code: Locale.current.currency?.identifier ?? "EUR")
     
- 
+    
     var tipPercentages = 0..<101
     
-
-       
     var totalPerPerson: (Double,Double) {
         let peopleCount = Double(numberOfPeople + 2)
         let tipSelection = Double(tipPercentage)
@@ -38,8 +36,8 @@ struct ContentView: View {
             Form {
                 Section {
                     TextField("Price", value: $checkAmount, format: currencyFormat)
-                    .keyboardType(UIKeyboardType.decimalPad)
-                    .focused($amountIsFocused)
+                        .keyboardType(UIKeyboardType.decimalPad)
+                        .focused($amountIsFocused)
                     Picker("people", selection: $numberOfPeople) {
                         ForEach(2..<100) {
                             Text("\($0) people")
@@ -63,28 +61,30 @@ struct ContentView: View {
                 }
                 Section {
                     Text(totalPerPerson.1, format: .currency(code: Locale.current.currency?.identifier ?? "EUR"))
+                        .foregroundStyle(tipPercentage <= 0 ? .red : .black)
                 } header : {
                     Text("Total amount per check")
                 }
-            }
-            .navigationTitle("We split")
-            .toolbar {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    
-                    Button("done") {
-                        amountIsFocused = false
+                .navigationTitle("We split")
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        
+                        Button("done") {
+                            amountIsFocused = false
+                        }
                     }
+                    
                 }
             }
         }
     }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+    
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+        }
     }
+    
+    
 }
-
-
